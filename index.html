@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拾光設計工作室 SHIGUANG DESIGN | 拾起生活中的美好時光</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#FDFBF7',        // 米白/奶茶底色
+                            card: '#F4EFEA',      // 淺咖啡/奶茶色
+                            accent: '#C5A880',    // 暖金色/質感調
+                            text: '#2C2A29',      // 深灰/文字主色
+                            muted: '#7A7571',     // 輔助灰
+                            dark: '#1A1918'       // 暗色調
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['PingFang TC', 'Noto Sans TC', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background-color: #FDFBF7;
+            color: #2C2A29;
+            overflow-x: hidden;
+        }
+        .bg-grain {
+            background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-text antialiased font-sans bg-grain selection:bg-brand-accent selection:text-white">
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-brand-bg/80 backdrop-blur-md border-b border-brand-card transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 border border-brand-text/20 rounded-full flex items-center justify-center transition-transform group-hover:rotate-45 duration-500">
+                    <span class="text-xs font-semibold tracking-tighter">SG</span>
+                </div>
+                <div>
+                    <span class="text-lg font-bold tracking-widest block leading-none">拾光設計</span>
+                    <span class="text-[10px] tracking-widest text-brand-muted uppercase">Shiguang Design</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-10 text-sm tracking-widest">
+                <a href="#about" class="hover:text-brand-accent transition-colors">設計理念</a>
+                <a href="#portfolio" class="hover:text-brand-accent transition-colors">精選作品</a>
+                <a href="#interactive" class="hover:text-brand-accent transition-colors">空間探索</a>
+                <a href="#services" class="hover:text-brand-accent transition-colors">服務流程</a>
+                <a href="#contact" class="px-5 py-2.5 bg-brand-text text-brand-bg rounded-full hover:bg-brand-accent transition-all duration-300">預約諮詢</a>
+            </nav>
+
+            <!-- Mobile Nav Toggle -->
+            <button id="menu-btn" class="md:hidden p-2 text-brand-text">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-bg border-b border-brand-card px-6 py-6 space-y-4 text-center">
+            <a href="#about" class="block py-2 text-sm tracking-widest">設計理念</a>
+            <a href="#portfolio" class="block py-2 text-sm tracking-widest">精選作品</a>
+            <a href="#interactive" class="block py-2 text-sm tracking-widest">空間探索</a>
+            <a href="#services" class="block py-2 text-sm tracking-widest">服務流程</a>
+            <a href="#contact" class="inline-block mt-2 px-6 py-2.5 bg-brand-text text-brand-bg rounded-full text-sm tracking-widest">預約諮詢</a>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="relative min-h-[90vh] flex items-center justify-center px-6 overflow-hidden">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-12">
+                <div class="lg:col-span-7 space-y-8 z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-card rounded-full text-xs tracking-widest text-brand-muted">
+                        <span class="w-2 h-2 rounded-full bg-brand-accent"></span>
+                        拾起生活中的美好時光
+                    </div>
+                    <h1 id="hero-title" class="text-4xl sm:text-6xl lg:text-7xl font-light leading-tight tracking-wide">
+                        將自然日光與生活習慣<br/>
+                        <span class="font-normal italic">織入現代空間</span>
+                    </h1>
+                    <p id="hero-desc" class="text-brand-muted text-base sm:text-lg max-w-xl font-light leading-relaxed">
+                        我們相信，理想的住宅不只是美感的堆疊，而是能回應使用者日常需求的溫暖載體。以極簡語彙與實用機能，為您淬鍊空間的專屬溫度。
+                    </p>
+                    <div id="hero-cta" class="flex flex-wrap items-center gap-4 pt-4">
+                        <a href="#portfolio" class="px-8 py-4 bg-brand-text text-brand-bg rounded-full hover:bg-brand-accent transition-all duration-300 flex items-center gap-2 text-sm tracking-widest group">
+                            瀏覽精選案例
+                            <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                        </a>
+                        <a href="#contact" class="px-8 py-4 border border-brand-text/20 rounded-full hover:border-brand-accent hover:text-brand-accent transition-all duration-300 text-sm tracking-widest">
+                            預約初步諮詢
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 relative">
+                    <div id="hero-image-wrap" class="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5] bg-brand-card">
+                        <img id="hero-image" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="現代簡約室內設計" class="w-full h-full object-cover scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/30 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 p-4 bg-white/70 backdrop-blur-md rounded-xl text-xs flex justify-between items-center">
+                            <div>
+                                <p class="font-medium">靜謐之光 — 陽明山住宅</p>
+                                <p class="text-brand-muted">老屋翻新 / 45坪</p>
+                            </div>
+                            <span class="text-brand-accent font-medium">查看專案</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brand Core Values (About) -->
+        <section id="about" class="py-24 px-6 border-t border-brand-card">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="space-y-4">
+                        <div class="text-brand-accent text-sm tracking-widest font-mono">01 / CONCEPT</div>
+                        <h3 class="text-xl font-medium">生活習慣導向</h3>
+                        <p class="text-brand-muted text-sm leading-relaxed font-light">
+                            深入了解屋主的身高習慣、收納需求與作息動線，讓每一吋空間規劃都精準回應真實生活。
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="text-brand-accent text-sm tracking-widest font-mono">02 / AESTHETIC</div>
+                        <h3 class="text-xl font-medium">極簡細節質感</h3>
+                        <p class="text-brand-muted text-sm leading-relaxed font-light">
+                            以奶茶色、米白與溫潤木質為基調，透過隱藏收納與俐落線條，展現低調而不失質感的居家美學。
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="text-brand-accent text-sm tracking-widest font-mono">03 / FUNCTION</div>
+                        <h3 class="text-xl font-medium">機能與美感並重</h3>
+                        <p class="text-brand-muted text-sm leading-relaxed font-light">
+                            拒絕不實用的華麗裝飾，將強大的收納系統自然融入空間，維持長久的簡約整潔。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Gallery with GSAP Flip Filtering -->
+        <section id="portfolio" class="py-24 px-6 bg-brand-card/40">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div>
+                        <span class="text-brand-accent text-xs tracking-widest uppercase">Portfolio</span>
+                        <h2 class="text-3xl sm:text-4xl font-light mt-2">精選作品案例</h2>
+                    </div>
+
+                    <!-- Category Filters -->
+                    <div class="flex flex-wrap gap-2 text-sm" id="filter-buttons">
+                        <button data-filter="all" class="filter-btn active px-5 py-2 rounded-full bg-brand-text text-brand-bg transition-all duration-300">全部作品</button>
+                        <button data-filter="residential" class="filter-btn px-5 py-2 rounded-full border border-brand-text/10 hover:border-brand-text/40 transition-all duration-300">住宅空間</button>
+                        <button data-filter="small" class="filter-btn px-5 py-2 rounded-full border border-brand-text/10 hover:border-brand-text/40 transition-all duration-300">小坪數機能</button>
+                        <button data-filter="renovation" class="filter-btn px-5 py-2 rounded-full border border-brand-text/10 hover:border-brand-text/40 transition-all duration-300">老屋翻新</button>
+                    </div>
+                </div>
+
+                <!-- Portfolio Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                    <!-- Item 1 -->
+                    <div class="portfolio-item group cursor-pointer" data-category="residential">
+                        <div class="overflow-hidden rounded-xl aspect-[4/3] bg-brand-card relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="日光木質宅" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-brand-dark/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="px-4 py-2 bg-white/90 rounded-full text-xs tracking-widest font-medium">查看完整專案</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-brand-accent mb-1">
+                            <span>住宅空間</span> • <span>32 坪</span>
+                        </div>
+                        <h3 class="text-xl font-medium group-hover:text-brand-accent transition-colors">日光暖木 — 大安許宅</h3>
+                        <p class="text-brand-muted text-sm font-light mt-1">以潤澤木皮與大面積採光，為四口之家打造溫馨和煦的日常生活。</p>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="portfolio-item group cursor-pointer" data-category="small">
+                        <div class="overflow-hidden rounded-xl aspect-[4/3] bg-brand-card relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=800&q=80" alt="極簡單身公寓" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-brand-dark/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="px-4 py-2 bg-white/90 rounded-full text-xs tracking-widest font-medium">查看完整專案</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-brand-accent mb-1">
+                            <span>小坪數機能</span> • <span>16 坪</span>
+                        </div>
+                        <h3 class="text-xl font-medium group-hover:text-brand-accent transition-colors">極光輕盈 — 信義單身宅</h3>
+                        <p class="text-brand-muted text-sm font-light mt-1">極致發揮 16 坪空間，整合模組化收納與多功能彈性隔間。</p>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="portfolio-item group cursor-pointer" data-category="renovation">
+                        <div class="overflow-hidden rounded-xl aspect-[4/3] bg-brand-card relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" alt="老屋新生" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-brand-dark/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="px-4 py-2 bg-white/90 rounded-full text-xs tracking-widest font-medium">查看完整專案</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-brand-accent mb-1">
+                            <span>老屋翻新</span> • <span>40 年老宅</span>
+                        </div>
+                        <h3 class="text-xl font-medium group-hover:text-brand-accent transition-colors">歲月重塑 — 中山巷弄老宅</h3>
+                        <p class="text-brand-muted text-sm font-light mt-1">改善採光與動線瓶頸，保留復古磚牆並注入現代清雅氛圍。</p>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="portfolio-item group cursor-pointer" data-category="residential">
+                        <div class="overflow-hidden rounded-xl aspect-[4/3] bg-brand-card relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="微風奶茶宅" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-brand-dark/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="px-4 py-2 bg-white/90 rounded-full text-xs tracking-widest font-medium">查看完整專案</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-brand-accent mb-1">
+                            <span>住宅空間</span> • <span>28 坪</span>
+                        </div>
+                        <h3 class="text-xl font-medium group-hover:text-brand-accent transition-colors">奶茶漫步 — 板橋新婚宅</h3>
+                        <p class="text-brand-muted text-sm font-light mt-1">柔美奶油色調搭配圓弧天花弧線，營造極具療癒感的新婚生活。</p>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="portfolio-item group cursor-pointer" data-category="renovation">
+                        <div class="overflow-hidden rounded-xl aspect-[4/3] bg-brand-card relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80" alt="靜心茶室" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-brand-dark/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="px-4 py-2 bg-white/90 rounded-full text-xs tracking-widest font-medium">查看完整專案</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-brand-accent mb-1">
+                            <span>老屋翻新</span> • <span>50 坪</span>
+                        </div>
+                        <h3 class="text-xl font-medium group-hover:text-brand-accent transition-colors">人文沉香 — 天母人文宅</h3>
+                        <p class="text-brand-muted text-sm font-light mt-1">將東方茶意融入現代簡約線條，打造沉穩放鬆的休閒避風港。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Space Floor Plan Exploration Section -->
+        <section id="interactive" class="py-24 px-6">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="text-center max-w-2xl mx-auto space-y-4">
+                    <span class="text-brand-accent text-xs tracking-widest uppercase">Interactive Exploration</span>
+                    <h2 class="text-3xl sm:text-4xl font-light">互動式平面圖導覽</h2>
+                    <p class="text-brand-muted text-sm font-light">點擊平面圖上的空間區域，即時感受各角落的設計細節與氛圍。</p>
+                </div>
+
+                <div class="bg-brand-card/50 rounded-2xl p-6 lg:p-10 border border-brand-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Interactive Floor Plan Blueprint SVG -->
+                    <div class="lg:col-span-7 bg-white/80 p-6 rounded-xl border border-brand-card shadow-sm">
+                        <div class="relative w-full aspect-[4/3]">
+                            <svg viewBox="0 0 600 450" class="w-full h-full text-brand-text">
+                                <!-- Blueprint Outer Boundary -->
+                                <rect x="20" y="20" width="560" height="410" fill="none" stroke="currentColor" stroke-width="4" />
+                                
+                                <!-- Living Room Area -->
+                                <g id="zone-living" class="zone-group cursor-pointer hover:opacity-80 transition-opacity" data-room="living">
+                                    <rect x="25" y="25" width="300" height="230" fill="#F4EFEA" stroke="currentColor" stroke-width="2" />
+                                    <text x="175" y="140" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2A29">客廳 Living Room</text>
+                                    <circle cx="175" cy="160" r="12" fill="#C5A880" />
+                                    <text x="175" y="164" text-anchor="middle" font-size="10" fill="#FFF">1</text>
+                                </g>
+
+                                <!-- Kitchen Area -->
+                                <g id="zone-kitchen" class="zone-group cursor-pointer hover:opacity-80 transition-opacity" data-room="kitchen">
+                                    <rect x="330" y="25" width="245" height="230" fill="#EFEAE4" stroke="currentColor" stroke-width="2" />
+                                    <text x="452" y="140" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2A29">餐廚區 Kitchen & Dining</text>
+                                    <circle cx="452" cy="160" r="12" fill="#C5A880" />
+                                    <text x="452" y="164" text-anchor="middle" font-size="10" fill="#FFF">2</text>
+                                </g>
+
+                                <!-- Bedroom Area -->
+                                <g id="zone-bedroom" class="zone-group cursor-pointer hover:opacity-80 transition-opacity" data-room="bedroom">
+                                    <rect x="25" y="260" width="350" height="165" fill="#EAE4DC" stroke="currentColor" stroke-width="2" />
+                                    <text x="200" y="340" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2A29">主臥室 Master Bedroom</text>
+                                    <circle cx="200" cy="360" r="12" fill="#C5A880" />
+                                    <text x="200" y="364" text-anchor="middle" font-size="10" fill="#FFF">3</text>
+                                </g>
+
+                                <!-- Study / Multifunction Area -->
+                                <g id="zone-study" class="zone-group cursor-pointer hover:opacity-80 transition-opacity" data-room="study">
+                                    <rect x="380" y="260" width="195" height="165" fill="#F4EFEA" stroke="currentColor" stroke-width="2" />
+                                    <text x="477" y="340" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2A29">多功能書房 Study</text>
+                                    <circle cx="477" cy="360" r="12" fill="#C5A880" />
+                                    <text x="477" y="364" text-anchor="middle" font-size="10" fill="#FFF">4</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Room Dynamic Detail Display -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div id="room-detail" class="bg-white p-6 rounded-xl border border-brand-card shadow-sm space-y-4">
+                            <div class="overflow-hidden rounded-lg aspect-[16/10]">
+                                <img id="room-img" src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="空間實景" class="w-full h-full object-cover transition-all duration-500">
+                            </div>
+                            <div>
+                                <span id="room-tag" class="text-xs text-brand-accent tracking-widest uppercase">Zone 01</span>
+                                <h3 id="room-title" class="text-2xl font-medium mt-1">日光通透客廳</h3>
+                                <p id="room-desc" class="text-brand-muted text-sm font-light mt-2 leading-relaxed">
+                                    開放式格局串聯客餐廳，引入雙面自然採光。搭配無腳沙發與低矮家具，拉高視覺開闊感。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Workflow Section -->
+        <section id="services" class="py-24 px-6 border-t border-brand-card">
+            <div class="max-w-7xl mx-auto space-y-16">
+                <div class="text-center max-w-xl mx-auto space-y-4">
+                    <span class="text-brand-accent text-xs tracking-widest uppercase">Process</span>
+                    <h2 class="text-3xl sm:text-4xl font-light">透明專業的服務流程</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                    <!-- Step 1 -->
+                    <div class="space-y-4 p-6 bg-white rounded-xl border border-brand-card shadow-sm">
+                        <div class="w-10 h-10 rounded-full bg-brand-card text-brand-accent font-bold flex items-center justify-center text-sm">01</div>
+                        <h3 class="text-lg font-medium">需求溝通 & 現場丈量</h3>
+                        <p class="text-brand-muted text-sm font-light leading-relaxed">深入對談了解居住習慣，現場精密丈量屋況與採光條件。</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="space-y-4 p-6 bg-white rounded-xl border border-brand-card shadow-sm">
+                        <div class="w-10 h-10 rounded-full bg-brand-card text-brand-accent font-bold flex items-center justify-center text-sm">02</div>
+                        <h3 class="text-lg font-medium">平面配置 & 概念定案</h3>
+                        <p class="text-brand-muted text-sm font-light leading-relaxed">提供多套動線配置提案與材質板，確立設計風格與預算。</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="space-y-4 p-6 bg-white rounded-xl border border-brand-card shadow-sm">
+                        <div class="w-10 h-10 rounded-full bg-brand-card text-brand-accent font-bold flex items-center justify-center text-sm">03</div>
+                        <h3 class="text-lg font-medium">施工圖繪製 & 工程監造</h3>
+                        <p class="text-brand-muted text-sm font-light leading-relaxed">完整細部施工圖面，嚴格把關施工品質與工程進度掌控。</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="space-y-4 p-6 bg-white rounded-xl border border-brand-card shadow-sm">
+                        <div class="w-10 h-10 rounded-full bg-brand-card text-brand-accent font-bold flex items-center justify-center text-sm">04</div>
+                        <h3 class="text-lg font-medium">軟裝佈置 & 完工交屋</h3>
+                        <p class="text-brand-muted text-sm font-light leading-relaxed">協助家飾傢俱挑選擺設，提供完善保固服務，安心入厝。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact / Consultation Booking Section -->
+        <section id="contact" class="py-24 px-6 bg-brand-card/40">
+            <div class="max-w-4xl mx-auto space-y-12">
+                <div class="text-center space-y-4">
+                    <span class="text-brand-accent text-xs tracking-widest uppercase">Start Your Journey</span>
+                    <h2 class="text-3xl sm:text-4xl font-light">開始預約您的美好空間</h2>
+                    <p class="text-brand-muted text-sm font-light">請填寫以下資訊，我們將於 2 個工作天內由專人與您聯繫。</p>
+                </div>
+
+                <form id="contact-form" class="bg-white p-8 sm:p-12 rounded-2xl border border-brand-card shadow-sm space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-medium text-brand-muted tracking-widest uppercase mb-2">您的姓名 *</label>
+                            <input type="text" required placeholder="例如：林先生 / 小姐" class="w-full px-4 py-3 rounded-lg border border-brand-card focus:outline-none focus:border-brand-accent text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-brand-muted tracking-widest uppercase mb-2">聯絡電話 *</label>
+                            <input type="tel" required placeholder="0912-345-678" class="w-full px-4 py-3 rounded-lg border border-brand-card focus:outline-none focus:border-brand-accent text-sm">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-medium text-brand-muted tracking-widest uppercase mb-2">房屋位置</label>
+                            <input type="text" placeholder="例如：台北市大安區" class="w-full px-4 py-3 rounded-lg border border-brand-card focus:outline-none focus:border-brand-accent text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-brand-muted tracking-widest uppercase mb-2">室內坪數 / 屋況</label>
+                            <input type="text" placeholder="例如：25坪 / 新成屋" class="w-full px-4 py-3 rounded-lg border border-brand-card focus:outline-none focus:border-brand-accent text-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-brand-muted tracking-widest uppercase mb-2">預計裝潢需求與想法</label>
+                        <textarea rows="4" placeholder="請簡述您的成員、預估預算或風格喜好..." class="w-full px-4 py-3 rounded-lg border border-brand-card focus:outline-none focus:border-brand-accent text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 bg-brand-text text-brand-bg rounded-full hover:bg-brand-accent transition-all duration-300 text-sm tracking-widest font-medium">
+                        送出預約需求
+                    </button>
+                    <p id="form-status" class="text-center text-xs text-brand-accent hidden">感謝您的預約，我們將盡快與您聯繫！</p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-brand-bg py-16 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-6 space-y-4">
+                <span class="text-lg font-bold tracking-widest block">拾光設計工作室</span>
+                <p class="text-brand-muted text-sm max-w-sm font-light">
+                    拾起生活中的美好時光。專注於現代簡約住宅與商業空間規劃，讓美感與實用性共存。
+                </p>
+            </div>
+            <div class="md:col-span-6 flex flex-col sm:flex-row justify-between gap-8 text-sm text-brand-muted font-light">
+                <div class="space-y-2">
+                    <p class="text-white font-medium">聯絡資訊</p>
+                    <p>電話：(02) 2345-6789</p>
+                    <p>信箱：hello@shiguangdesign.tw</p>
+                    <p>地址：台北市大安區敦化南路二段 88 號 5 樓</p>
+                </div>
+                <div class="space-y-2">
+                    <p class="text-white font-medium">社群追蹤</p>
+                    <a href="#" class="block hover:text-white transition-colors">Instagram</a>
+                    <a href="#" class="block hover:text-white transition-colors">Facebook</a>
+                    <a href="#" class="block hover:text-white transition-colors">Pinterest</a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto border-t border-white/10 mt-12 pt-8 text-center text-xs text-brand-muted">
+            &copy; 2026 拾光設計工作室 SHIGUANG DESIGN. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Interactive Logic Script -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // GSAP Animations Initialization
+        gsap.registerPlugin(ScrollTrigger, Flip);
+
+        // Hero Animation Timeline
+        const heroTl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 1 } });
+        heroTl.from('#hero-title', { y: 40, opacity: 0, delay: 0.2 })
+              .from('#hero-desc', { y: 20, opacity: 0 }, '-=0.6')
+              .from('#hero-cta', { y: 20, opacity: 0 }, '-=0.6')
+              .from('#hero-image-wrap', { scale: 0.95, opacity: 0, duration: 1.2 }, '-=0.8');
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Portfolio Filtering with GSAP Flip
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const items = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-brand-text', 'text-brand-bg');
+                    b.classList.add('border', 'border-brand-text/10');
+                });
+                btn.classList.add('bg-brand-text', 'text-brand-bg');
+                btn.classList.remove('border', 'border-brand-text/10');
+
+                const filter = btn.getAttribute('data-filter');
+                const state = Flip.getState(items);
+
+                items.forEach(item => {
+                    const cat = item.getAttribute('data-category');
+                    if (filter === 'all' || cat === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                Flip.from(state, {
+                    duration: 0.6,
+                    ease: 'power1.inOut',
+                    absolute: true
+                });
+            });
+        });
+
+        // Interactive Floor Plan Data & Events
+        const roomData = {
+            living: {
+                tag: 'Zone 01',
+                title: '日光通透客廳',
+                desc: '開放式格局串聯客餐廳，引入雙面自然採光。搭配無腳沙發與低矮家具，拉高視覺開闊感。',
+                img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80'
+            },
+            kitchen: {
+                tag: 'Zone 02',
+                title: '中島開放式餐廚',
+                desc: '設置大尺度人造石中島，結合輕食吧台與流暢動線，讓下廚與聚會成為家庭生活核心。',
+                img: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80'
+            },
+            bedroom: {
+                tag: 'Zone 03',
+                title: '沉靜紓壓主臥',
+                desc: '溫潤木格柵背景牆搭配隱藏式衣櫃門片，以簡潔大地色系營造無壓力的睡眠環境。',
+                img: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80'
+            },
+            study: {
+                tag: 'Zone 04',
+                title: '多功能沉思書房',
+                desc: '長弧形木質書桌佐以極簡開放書架，兼具居家辦公、閱讀與收納擴充性。',
+                img: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80'
+            }
+        };
+
+        const zones = document.querySelectorAll('.zone-group');
+        const roomImg = document.getElementById('room-img');
+        const roomTag = document.getElementById('room-tag');
+        const roomTitle = document.getElementById('room-title');
+        const roomDesc = document.getElementById('room-desc');
+
+        zones.forEach(zone => {
+            zone.addEventListener('click', () => {
+                const roomKey = zone.getAttribute('data-room');
+                const data = roomData[roomKey];
+
+                gsap.to('#room-detail', {
+                    opacity: 0.3,
+                    y: 10,
+                    duration: 0.2,
+                    onComplete: () => {
+                        roomTag.textContent = data.tag;
+                        roomTitle.textContent = data.title;
+                        roomDesc.textContent = data.desc;
+                        roomImg.src = data.img;
+
+                        gsap.to('#room-detail', {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.4
+                        });
+                    }
+                });
+            });
+        });
+
+        // Simple Form Submission Feedback
+        const form = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formStatus.classList.remove('hidden');
+            form.reset();
+        });
+    </script>
+</body>
+</html>
